@@ -17,7 +17,7 @@ mbed-os-tests-mbed_platform-wait_ns,\
 mbed-os-tests-mbedmicro-rtos-mbed-basic,\
 mbed-os-tests-mbedmicro-rtos-mbed-kernel_tick_count\
 "
-mbed test -m NUMAKER_PFM_M2351 -t ARM -n $TEST_LIST > m2351_arm_timer.log
-mbed test -m NUMAKER_PFM_M2351 -t ARMC6 -n $TEST_LIST > m2351_armc6_timer.log
-mbed test -m NUMAKER_PFM_M2351 -t GCC_ARM -n $TEST_LIST > m2351_gcc_arm_timer.log
-mbed test -m NUMAKER_PFM_M2351 -t IAR -n $TEST_LIST > m2351_iar_timer.log
+mbed test -m NU_PFM_M2351_NP_NS -t ARM -n $TEST_LIST > m2351_arm_timer.log
+mbed test -m NU_PFM_M2351_NP_NS -t ARMC6 -n $TEST_LIST > m2351_armc6_timer.log
+mbed test -m NU_PFM_M2351_NP_NS -t GCC_ARM -n $TEST_LIST > m2351_gcc_arm_timer.log
+mbed test -m NU_PFM_M2351_NP_NS -t IAR -n $TEST_LIST > m2351_iar_timer.log
