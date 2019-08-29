@@ -1,0 +1,14 @@
+{
+    "target_overrides": {
+        "*": {
+            "platform.stdio-baud-rate"              : 115200,
+            "target.features_remove"                : ["LWIP"],
+            "target.device_has_remove"              : ["EMAC"],
+            "target.network-default-interface-type" : null
+        },
+        "NUMAKER_M252KG": {
+            "storage_tdb_internal.internal_size"        : "0x1000",
+            "storage_tdb_internal.internal_base_address": "0x0003F000"
+        }
+    }
+}

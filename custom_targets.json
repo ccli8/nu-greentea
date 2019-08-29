@@ -1,0 +1,7 @@
+{
+   "NUMAKER_PFM_NUC472_NOXRAM": {
+        "inherits": ["NUMAKER_PFM_NUC472"],
+        "extra_labels_remove": ["NU_XRAM_SUPPORTED"],
+        "extra_labels_add": ["NU_XRAM_UNSUPPORTED"]
+    }
+}

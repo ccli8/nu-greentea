@@ -1,0 +1,10 @@
+{
+    "macros": [
+        "NVSTORE_ENABLED=false"
+    ],
+    "target_overrides": {
+        "*": {
+            "target.features_remove": ["LWIP"]
+        }
+    }
+}

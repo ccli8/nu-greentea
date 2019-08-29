@@ -1,0 +1,12 @@
+{
+    "target_overrides": {
+        "*": {
+            "target.features_remove": ["LWIP"]
+        },
+        "NUMAKER_PFM_M487": {
+            "target.extra_labels_remove": ["NU_SPIM_UNSUPPORTED"],
+            "target.extra_labels_add": ["NU_SPIM_SUPPORTED"],
+            "M480.ctrl01-enable": 0
+        }
+    }
+}
