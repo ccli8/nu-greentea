@@ -18,7 +18,7 @@ mbed-os-tests-mbedtls*,\
 mbed-os-tests-psa*\
 "
 
-mbed test -m NU_PFM_M2351_NP_NS -t ARMC6 -n $TEST_LIST > m2351_armc6.log
-#mbed test -m NU_PFM_M2351_NP_NS -t uARM -n $TEST_LIST > m2351_uarm.log
-mbed test -m NU_PFM_M2351_NP_NS -t GCC_ARM -n $TEST_LIST  > m2351_gcc_arm.log
-#mbed test -m NU_PFM_M2351_NP_NS -t IAR -n $TEST_LIST > m2351_iar.log
+mbed test -m NU_PFM_M2351_NS -t ARMC6 -n $TEST_LIST > m2351_armc6.log
+#mbed test -m NU_PFM_M2351_NS -t uARM -n $TEST_LIST > m2351_uarm.log
+mbed test -m NU_PFM_M2351_NS -t GCC_ARM -n $TEST_LIST  > m2351_gcc_arm.log
+#mbed test -m NU_PFM_M2351_NS -t IAR -n $TEST_LIST > m2351_iar.log
