@@ -13,5 +13,4 @@ mbed-os/features/netsocket/cellular/*
 mbed-os/features/netsocket/emac-drivers/*
 mbed-os/features/lorawan/*
 mbed-os/features/netsocket/NetworkInterfaceDefaults.cpp
-mbed-os/components/802.15.4_RF/*
 mbed-os/components/wifi/*
