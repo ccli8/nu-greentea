@@ -18,7 +18,6 @@ mbed-os-tests-mbedtls*,\
 mbed-os-tests-psa*\
 "
 
-#mbed test -m NUMAKER_PFM_M453 -t ARM -n $TEST_LIST > m453_arm.log
 mbed test -m NUMAKER_PFM_M453 -t ARMC6 -n $TEST_LIST > m453_armc6.log
 mbed test -m NUMAKER_PFM_M453 -t GCC_ARM -n $TEST_LIST > m453_gcc_arm.log
 mbed test -m NUMAKER_PFM_M453 -t IAR -n $TEST_LIST > m453_iar.log

@@ -18,7 +18,6 @@ mbed-os-tests-mbedmicro-rtos-mbed-basic,\
 mbed-os-tests-mbedmicro-rtos-mbed-kernel_tick_count\
 "
 
-#mbed test -m NUMAKER_IOT_M263A -t ARM -n $TEST_LIST > m263a_arm_timer.log
 mbed test -m NUMAKER_IOT_M263A -t ARMC6 -n $TEST_LIST > m263a_armc6_timer.log
 mbed test -m NUMAKER_IOT_M263A -t GCC_ARM -n $TEST_LIST > m263a_gcc_arm_timer.log
 mbed test -m NUMAKER_IOT_M263A -t IAR -n $TEST_LIST > m263a_iar_timer.log

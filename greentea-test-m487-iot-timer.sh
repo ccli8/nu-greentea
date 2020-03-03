@@ -18,7 +18,6 @@ mbed-os-tests-mbedmicro-rtos-mbed-basic,\
 mbed-os-tests-mbedmicro-rtos-mbed-kernel_tick_count\
 "
 
-mbed test -m NUMAKER_IOT_M487 -t ARM -n $TEST_LIST > m487_iot_arm_timer.log
 mbed test -m NUMAKER_IOT_M487 -t ARMC6 -n $TEST_LIST > m487_iot_armc6_timer.log
 mbed test -m NUMAKER_IOT_M487 -t GCC_ARM -n $TEST_LIST > m487_iot_gcc_arm_timer.log
 mbed test -m NUMAKER_IOT_M487 -t IAR -n $TEST_LIST > m487_iot_iar_timer.log

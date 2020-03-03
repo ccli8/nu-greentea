@@ -18,7 +18,6 @@ mbed-os-tests-mbedtls*,\
 mbed-os-tests-psa*\
 "
 
-#mbed test -m NUMAKER_M252KG -t ARM -n $TEST_LIST > m252kg_arm.log
 mbed test -m NUMAKER_M252KG -t ARMC6 -n $TEST_LIST > m252kg_armc6.log
 mbed test -m NUMAKER_M252KG -t GCC_ARM -n $TEST_LIST > m252kg_gcc_arm.log
 mbed test -m NUMAKER_M252KG -t IAR -n $TEST_LIST > m252kg_iar.log

@@ -18,7 +18,6 @@ mbed-os-tests-mbedmicro-rtos-mbed-basic,\
 mbed-os-tests-mbedmicro-rtos-mbed-kernel_tick_count\
 "
 
-#mbed test -m NUMAKER_PFM_M453 -t ARM -n $TEST_LIST > m453_arm_timer.log
 mbed test -m NUMAKER_PFM_M453 -t ARMC6 -n $TEST_LIST > m453_armc6_timer.log
 mbed test -m NUMAKER_PFM_M453 -t GCC_ARM -n $TEST_LIST > m453_gcc_arm_timer.log
 mbed test -m NUMAKER_PFM_M453 -t IAR -n $TEST_LIST > m453_iar_timer.log
