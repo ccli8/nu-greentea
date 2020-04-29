@@ -4,7 +4,8 @@ TEST_LIST="\
 mbed-os-tests-mbed_drivers-flashiap*,\
 mbed-os-tests-mbed_hal-flash*,\
 mbed-os-features-storage-nvstore*,\
-mbed-os-features-device_key*\
+mbed-os-features-device_key*,\
+mbed-os-features-storage-tests-kvstore*\
 "
 
 mbed test -m NUMAKER_PFM_M487 -t ARMC6 -n $TEST_LIST > m487_armc6_flash.log
