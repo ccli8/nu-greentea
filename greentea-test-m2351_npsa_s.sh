@@ -5,6 +5,7 @@ mbed-os-features-device_key*,\
 mbed-os-features-frameworks-utest*,\
 mbed-os-features-storage-nvstore*,\
 mbed-os-features-tests*,\
+mbed-os-storage*,\
 mbed-os-tests-events*,\
 mbed-os-tests-integration*,\
 mbed-os-tests-mbed-crypto*,\

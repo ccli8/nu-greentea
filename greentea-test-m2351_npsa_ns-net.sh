@@ -1,6 +1,9 @@
 #!/bin/sh
 
 TEST_LIST="\
+mbed-os-connectivity-mbedtls-tests*,\
+mbed-os-connectivity-netsocket-tests*,\
+mbed-os-hal-tests-tests-mbed_hal-trng,\
 mbed-os-tests-mbed_hal-trng,\
 mbed-os-tests-mbedtls*,\
 mbed-os-tests-net*\
