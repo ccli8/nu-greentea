@@ -12,6 +12,6 @@ mbed-os-features-storage-tests-kvstore*,\
 mbed-os-storage*\
 "
 
-mbed test -m NU_M2354_NS -t ARMC6 -n $TEST_LIST > m2354-psa-ns_armc6_flash.log
-mbed test -m NU_M2354_NS -t GCC_ARM -n $TEST_LIST > m2354-psa-ns_gcc_arm_flash.log
-mbed test -m NU_M2354_NS -t IAR -n $TEST_LIST > m2354-psa-ns_iar_flash.log
+mbed test -m NU_M2354 -t ARMC6 -n $TEST_LIST > m2354-psa-ns_armc6_flash.log
+mbed test -m NU_M2354 -t GCC_ARM -n $TEST_LIST > m2354-psa-ns_gcc_arm_flash.log
+mbed test -m NU_M2354 -t IAR -n $TEST_LIST > m2354-psa-ns_iar_flash.log

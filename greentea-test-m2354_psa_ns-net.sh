@@ -9,6 +9,6 @@ mbed-os-tests-mbedtls*,\
 mbed-os-tests-net*\
 "
 
-mbed test -m NU_M2354_NS -t ARMC6 --app-config mbed_app_net.json -n $TEST_LIST > m2354-psa-ns_armc6_net.log
-mbed test -m NU_M2354_NS -t GCC_ARM --app-config mbed_app_net.json -n $TEST_LIST > m2354-psa-ns_gcc_arm_net.log
-mbed test -m NU_M2354_NS -t IAR --app-config mbed_app_net.json -n $TEST_LIST > m2354-psa-ns_iar_net.log
+mbed test -m NU_M2354 -t ARMC6 --app-config mbed_app_net.json -n $TEST_LIST > m2354-psa-ns_armc6_net.log
+mbed test -m NU_M2354 -t GCC_ARM --app-config mbed_app_net.json -n $TEST_LIST > m2354-psa-ns_gcc_arm_net.log
+mbed test -m NU_M2354 -t IAR --app-config mbed_app_net.json -n $TEST_LIST > m2354-psa-ns_iar_net.log

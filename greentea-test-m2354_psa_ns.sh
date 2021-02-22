@@ -27,6 +27,6 @@ mbed-os-tests-psa*,\
 mbed-os-components-target_psa*
 "
 
-mbed test -m NU_M2354_NS -t ARMC6 -n $TEST_LIST > m2354-psa-ns_armc6.log
-mbed test -m NU_M2354_NS -t GCC_ARM -n $TEST_LIST  > m2354-psa-ns_gcc_arm.log
-mbed test -m NU_M2354_NS -t IAR -n $TEST_LIST > m2354-psa-ns_iar.log
+mbed test -m NU_M2354 -t ARMC6 -n $TEST_LIST > m2354-psa-ns_armc6.log
+mbed test -m NU_M2354 -t GCC_ARM -n $TEST_LIST  > m2354-psa-ns_gcc_arm.log
+mbed test -m NU_M2354 -t IAR -n $TEST_LIST > m2354-psa-ns_iar.log
