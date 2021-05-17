@@ -5,7 +5,7 @@ mbed-os-drivers-tests-tests-mbed_drivers-sleep*,\
 mbed-os-drivers-tests-tests-mbed_drivers-ti*,\
 mbed-os-drivers-tests-tests-mbed_drivers-lp*,\
 mbed-os-drivers-tests-tests-mbed_drivers-us*,\
-mbed-os-drivers-tests-tests-mbed_hal-sleep*,\
+mbed-os-drivers-tests-tests-mbed_drivers-rtc*,\
 mbed-os-events-tests-tests-events-timing,\
 mbed-os-hal-tests-tests-mbed_hal-sleep*,\
 mbed-os-hal-tests-tests-mbed_hal-ti*,\
