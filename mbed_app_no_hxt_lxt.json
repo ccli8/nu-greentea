@@ -1,0 +1,14 @@
+{
+    "target_overrides": {
+        "*": {
+            "target.hxt-present"                    : false,
+            "target.lxt-present"                    : false,
+            "platform.stdio-baud-rate"              : 115200,
+            "target.network-default-interface-type" : null,
+            "storage_tdb_internal.internal_size"    : "0x2000"
+        },
+        "NUVOTON": {
+            "target.device_has_remove"              : ["RTC"]
+        }
+    }
+}
