@@ -13,6 +13,9 @@
                                                         "UART_9BITS_NOT_SUPPORTED",
                                                         "UART_9BITS_PARITY_NOT_SUPPORTED"
                                                       ]
+        },
+        "NU_M2354": {
+            "target.supported_form_factors"         : ["ARDUINO_UNO"]
         }
     }
 }
