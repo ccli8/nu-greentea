@@ -22,7 +22,7 @@ mbed-os-tests-mbed_hal*,\
 mbed-os-tests-mbed_platform*,\
 mbed-os-tests-mbedmicro-mbed*,\
 mbed-os-tests-mbedmicro-rtos-mbed*,\
-mbed-os-tests-mbedtls*,\
+mbed-os-*-mbedtls*,\
 mbed-os-tests-psa*,\
 mbed-os-components-target_psa*
 "

@@ -4,6 +4,7 @@
             "platform.stdio-baud-rate"              : 115200,
             "target.features_remove"                : ["LWIP"],
             "target.device_has_remove"              : ["EMAC"],
+            "target.macros_add"                     : ["MBEDTLS_SELF_TEST"],
             "target.network-default-interface-type" : null,
             "storage_tdb_internal.internal_size"    : "0x2000"
         },
