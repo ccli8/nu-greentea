@@ -23,6 +23,7 @@ mbed-os-tests-mbed_platform*,\
 mbed-os-tests-mbedmicro-mbed*,\
 mbed-os-tests-mbedmicro-rtos-mbed*,\
 mbed-os-*-mbedtls*,\
+mbed-os-*-pin_names*,\
 mbed-os-tests-psa*,\
 mbed-os-components-target_psa*
 "
