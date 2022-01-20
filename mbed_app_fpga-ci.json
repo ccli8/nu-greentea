@@ -14,6 +14,9 @@
                                                         "UART_9BITS_PARITY_NOT_SUPPORTED"
                                                       ]
         },
+        "NUMAKER_IOT_M467": {
+            "target.supported_form_factors"         : ["ARDUINO_UNO"]
+        },
         "NU_M2354": {
             "target.supported_form_factors"         : ["ARDUINO_UNO"]
         }
