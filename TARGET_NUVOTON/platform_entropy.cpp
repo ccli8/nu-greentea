@@ -23,11 +23,11 @@
 
 #if defined(MBEDTLS_ENTROPY_HARDWARE_ALT)
 
-/* Support entropy source with EADC seeded PRNG on non-PSA targets without TRNG
+/* Support entropy source with EADC seeded random on non-PSA targets without TRNG
  *
- * Follow the steps below to replace TRNG with EADC seeded PRNG:
+ * Follow the steps below to replace TRNG with EADC seeded random:
  *
- * 1. Seed PRNG with EADC band gap
+ * 1. Seed random generator with EADC band gap
  * 2. Define MBEDTLS_ENTROPY_HARDWARE_ALT and provide custom mbedtls_hardware_poll(...)
  *
  * Reference configuration in mbed_app.json:
@@ -49,10 +49,21 @@
  *
  *  "target.device_has_remove": ["TRNG"],
  *
- * WARNING: If the security level of EADC seeded PRNG cannot meet requirements, replace it with another entropy source.
+ * WARNING: If the security level of EADC seeded random generator cannot meet requirements, replace it with another entropy source.
+ *
+ * Select random generator between PRNG and S/W random:
+ *
+ * For targets with PRNG:
+ *  "crypto-prng-present": true,
+ * For targets without PRNG (e.g. M482):
+ *  "crypto-prng-present": false,
  */
 
+#if NU_CRYPTO_PRNG_PRESENT
 #include "crypto-misc.h"
+#else
+#include <stdlib.h>
+#endif
 
 extern "C" {
     int mbedtls_hardware_poll(void *data, unsigned char *output, size_t len, size_t *olen);
@@ -73,14 +84,18 @@ extern "C" {
     #define EADC_AUX_PINNAME        A0
     #define EADC_BANDGAP_SMPLMOD    7
     #define EADC_BANDGAP_CHN        8
+#if NU_CRYPTO_PRNG_PRESENT
     #define PRNG_KEYSIZE_ID         PRNG_KEY_SIZE_128
     #define PRNG_KEYSIZE            16
+#endif
 #elif TARGET_M480
     #define EADC_AUX_PINNAME        A0
     #define EADC_BANDGAP_SMPLMOD    16
     #define EADC_BANDGAP_CHN        16
+#if NU_CRYPTO_PRNG_PRESENT
     #define PRNG_KEYSIZE_ID         PRNG_KEY_SIZE_128
     #define PRNG_KEYSIZE            16
+#endif
 #else
     #error("Target not support")
 #endif
@@ -97,11 +112,11 @@ public:
     uint16_t read_bitstream();
 };
 
-class NuEADCSeedPRNG : private mbed::NonCopyable<NuEADCSeedPRNG>
+class NuEADCSeedRandom : private mbed::NonCopyable<NuEADCSeedRandom>
 {
 public:
-    NuEADCSeedPRNG();
-    ~NuEADCSeedPRNG();
+    NuEADCSeedRandom();
+    ~NuEADCSeedRandom();
 
     /* Get random data
      *
@@ -117,9 +132,9 @@ private:
 
 int mbedtls_hardware_poll(MBED_UNUSED void *data, unsigned char *output, size_t len, size_t *olen)
 {
-    static NuEADCSeedPRNG eadc_seed_prng;
+    static NuEADCSeedRandom eadc_seed_random;
 
-    return eadc_seed_prng.get_bytes(output, len, olen);
+    return eadc_seed_random.get_bytes(output, len, olen);
 }
 
 NuBandGap::NuBandGap() : mbed::AnalogIn(EADC_AUX_PINNAME)
@@ -161,10 +176,16 @@ uint16_t NuBandGap::read_bitstream()
     return one_or_zero;
 }
 
-NuEADCSeedPRNG::NuEADCSeedPRNG()
+NuEADCSeedRandom::NuEADCSeedRandom()
 {
+#if NU_CRYPTO_PRNG_PRESENT
     crypto_init();
+#if TARGET_NUC472 || (MBED_MAJOR_VERSION < 6)
     PRNG_ENABLE_INT();
+#else
+    PRNG_ENABLE_INT(CRPT);
+#endif
+#endif
 
     uint32_t seed = 0;
     unsigned i = 32;
@@ -175,39 +196,69 @@ NuEADCSeedPRNG::NuEADCSeedPRNG()
         seed |= band_gap.read_bitstream();
     }
 
+#if NU_CRYPTO_PRNG_PRESENT
     /* PRNG reload seed */
+#if TARGET_NUC472 || (MBED_MAJOR_VERSION < 6)
     PRNG_Open(PRNG_KEYSIZE_ID, 1, seed);
+#else
+    PRNG_Open(CRPT, PRNG_KEYSIZE_ID, 1, seed);
+#endif
+#else
+    srand(seed);
+#endif  /* #if NU_CRYPTO_PRNG_PRESENT */
 }
 
-NuEADCSeedPRNG::~NuEADCSeedPRNG()
+NuEADCSeedRandom::~NuEADCSeedRandom()
 {
+#if NU_CRYPTO_PRNG_PRESENT
+#if TARGET_NUC472 || (MBED_MAJOR_VERSION < 6)
     PRNG_DISABLE_INT();
+#else
+    PRNG_DISABLE_INT(CRPT);
+#endif
     crypto_uninit();
+#endif /* #if NU_CRYPTO_PRNG_PRESENT */
 }
 
-int NuEADCSeedPRNG::get_bytes(unsigned char *output, size_t len, size_t *olen)
+int NuEADCSeedRandom::get_bytes(unsigned char *output, size_t len, size_t *olen)
 {
     /* Check argument validity */
     if (!output && len) {
         return -1;
     }
 
+#if NU_CRYPTO_PRNG_PRESENT
     unsigned char *output_ind = output;
     size_t rmn = len;
     uint32_t rand_data[PRNG_KEYSIZE / sizeof(uint32_t)];
     while (rmn) {
         crypto_prng_prestart();
+#if TARGET_NUC472 || (MBED_MAJOR_VERSION < 6)
         PRNG_Start();
+#else
+        PRNG_Start(CRPT);
+#endif
         crypto_prng_wait();
 
+#if TARGET_NUC472 || (MBED_MAJOR_VERSION < 6)
         PRNG_Read(rand_data);
-
+#else
+        PRNG_Read(CRPT, rand_data);
+#endif
         size_t n = (rmn >= PRNG_KEYSIZE) ? PRNG_KEYSIZE : rmn;
         memcpy(output_ind, rand_data, n);
         
         output_ind += n;
         rmn -= n;
     }
+#else
+    unsigned char *output_ind = output;
+    size_t rmn = len;
+    while (rmn) {
+        *output_ind ++ = rand() % 256;
+        rmn --;
+    }
+#endif /* #if NU_CRYPTO_PRNG_PRESENT */
 
     if (olen) {
         *olen = len;
@@ -216,7 +267,7 @@ int NuEADCSeedPRNG::get_bytes(unsigned char *output, size_t len, size_t *olen)
     return 0;
 }
 
-#elif defined(MBEDTLS_ENTROPY_NV_SEED)
+#else
 
 /* Support entropy source with mbedtls NV seed on non-PSA targets without TRNG
  *
@@ -262,7 +313,6 @@ int NuEADCSeedPRNG::get_bytes(unsigned char *output, size_t len, size_t *olen)
 #include "kv_config.h"
 
 extern "C" {
-    void mbed_main(void);
     psa_status_t mbedtls_psa_inject_entropy(const uint8_t *seed, size_t seed_size);
     int mbedtls_platform_seed_read(unsigned char *buf, size_t buf_len);
     int mbedtls_platform_seed_write(unsigned char *buf, size_t buf_len);
@@ -281,31 +331,6 @@ MBED_STATIC_ASSERT(SEED_SIZE <= MBEDTLS_ENTROPY_MAX_SEED_SIZE, "Seed size must b
 
 /* Seed key name in kvstore */
 #define KV_KEY_SEED         "seed"
-
-/* Inject trivial seed for development. Run provision process for mass production. */
-void mbed_main(void)
-{
-    /* Initialize kvstore */
-    int kv_status = kv_init_storage_config();
-    if (kv_status != MBED_SUCCESS) {
-        MBED_ERROR1(MBED_MAKE_ERROR(MBED_MODULE_PLATFORM, MBED_ERROR_CODE_UNKNOWN), "Initialize kvstore failed", kv_status);
-    }
-
-    psa_status_t psa_status;
-    uint8_t seed[SEED_SIZE] = { 0 };
-
-    /* First inject seed, expect OK or seed has injected by some provision process */
-    psa_status = mbedtls_psa_inject_entropy(seed, sizeof(seed));
-    if (psa_status != PSA_SUCCESS && psa_status != PSA_ERROR_NOT_PERMITTED) {
-        MBED_ERROR1(MBED_MAKE_ERROR(MBED_MODULE_PLATFORM, MBED_ERROR_CODE_UNKNOWN), "Inject entropy failed", psa_status);
-    }
-
-    /* Second inject seed, expect seed has injected above or by some provision process */
-    psa_status = mbedtls_psa_inject_entropy(seed, sizeof(seed));
-    if (psa_status != PSA_ERROR_NOT_PERMITTED) {
-        MBED_ERROR1(MBED_MAKE_ERROR(MBED_MODULE_PLATFORM, MBED_ERROR_CODE_UNKNOWN), "Re-jnject entropy expects PSA_ERROR_NOT_PERMITTED", psa_status);
-    }
-}
 
 /* Inject an initial entropy seed for the random generator into secure storage
  *

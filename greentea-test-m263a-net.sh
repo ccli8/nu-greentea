@@ -6,7 +6,8 @@ mbed-os-connectivity-netsocket-tests*,\
 mbed-os-hal-tests-tests-mbed_hal-trng,\
 mbed-os-tests-mbed_hal-trng,\
 mbed-os-tests-mbedtls*,\
-mbed-os-tests-net*\
+mbed-os-tests-net*,\
+mbed-os-tests-integration*\
 "
 
 mbed test -m NUMAKER_IOT_M263A -t ARMC6 --app-config mbed_app_net.json -n $TEST_LIST > m263a_armc6_net.log
