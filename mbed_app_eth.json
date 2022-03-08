@@ -1,0 +1,40 @@
+{
+    "config": {
+        "echo-server": {
+            "help": "Build test to be echo server",
+            "value": 0
+        },
+        "echo-server-trace": {
+            "help": "Trace incoming messages on echo server",
+            "value": 0
+        },
+        "wifi-scan": {
+            "help": "Scan and list access points",
+            "value": 0
+        }
+    },
+    "target_overrides": {
+        "*": {
+            "platform.stdio-baud-rate"                  : 115200,
+            "nsapi.default-wifi-security"               : "WPA_WPA2",
+            "nsapi.default-wifi-ssid"                   : "\"SSID\"",
+            "nsapi.default-wifi-password"               : "\"PASSWORD\"",
+            "nsapi.default-stack"                       : "TEST"
+        },
+        "NUMAKER_PFM_NUC472": {
+            "target.network-default-interface-type"     : "ETHERNET",
+            "target.macros_add"                         : ["MBEDTLS_ENTROPY_HARDWARE_ALT"]
+        },
+        "NUMAKER_IOT_M467": {
+            "target.network-default-interface-type"     : "ETHERNET"
+        },
+        "NUMAKER_PFM_M487": {
+            "target.network-default-interface-type"     : "ETHERNET",
+            "target.macros_add"                         : ["MBEDTLS_ENTROPY_HARDWARE_ALT"]
+        },
+        "NUMAKER_IOT_M487": {
+            "target.network-default-interface-type"     : "ETHERNET",
+            "target.macros_add"                         : ["MBEDTLS_ENTROPY_HARDWARE_ALT"]
+        }
+    }
+}
