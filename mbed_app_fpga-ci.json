@@ -15,6 +15,7 @@
                                                       ]
         },
         "NUMAKER_IOT_M467": {
+            "target.exclude-uno-spi-from-fpga-ci-test-shield-test"  : true,
             "target.supported_form_factors"         : ["ARDUINO_UNO"]
         },
         "NU_M2354": {
